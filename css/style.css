@@ -1,0 +1,305 @@
+/* ==========================================================================
+   Adhil - Portofolio (satu halaman)
+   Warna solid bold + material kaca ala Apple pada navbar dan tombol.
+   Tanpa gradient, tanpa foto, tanpa logo bajakan.
+   ========================================================================== */
+
+:root {
+  --bg: #E14A1F;
+  --bg-deep: #B93815;
+  --ink: #1C1108;
+  --ink-muted: #5B4B3D;
+  --paper: #FFF7EC;
+  --paper-dim: #F4E9D8;
+  --accent: #FFD23F;
+  --line: #E9DFC8;
+  --line-on-bold: rgba(255, 247, 236, 0.28);
+
+  --glass-bg: rgba(28, 17, 8, 0.55);
+  --glass-bg-light: rgba(255, 247, 236, 0.14);
+  --glass-border: rgba(255, 247, 236, 0.22);
+  --glass-blur: blur(20px) saturate(160%);
+
+  --font-display: "Archivo Black", "Arial Black", sans-serif;
+  --font-body: "Work Sans", -apple-system, Segoe UI, Roboto, sans-serif;
+
+  --page-max: 1080px;
+  --radius: 10px;
+  --nav-space: 6.2rem;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--nav-space);
+}
+
+h1, h2 { font-family: var(--font-display); line-height: 1.05; margin: 0; }
+h1 { font-size: clamp(2.9rem, 7vw + 1rem, 5.6rem); letter-spacing: -.01em; }
+h2 { font-size: clamp(1.9rem, 3vw + 1rem, 2.6rem); }
+h3 { font-family: var(--font-body); font-weight: 700; margin: 0; }
+
+p { max-width: 62ch; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--accent); color: var(--ink); }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--bg); border-radius: 8px; }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--ink); color: var(--paper);
+  padding: .6rem 1rem; z-index: 2000;
+}
+.skip-link:focus { left: .75rem; top: .75rem; }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* ---------- Navbar: kaca melayang ala Apple ---------- */
+.navbar-float-wrap {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(94%, 1040px);
+  z-index: 50;
+}
+
+.site-navbar {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 26px;
+  box-shadow: 0 14px 34px rgba(28, 17, 8, .22);
+  padding: .55rem .8rem .55rem 1rem;
+}
+
+.brand-mark { display: flex; align-items: center; gap: .55rem; color: var(--paper); }
+.brand-mark svg { width: 26px; height: 30px; flex-shrink: 0; transition: transform .3s ease; }
+.brand-mark:hover svg { transform: rotate(-8deg) scale(1.05); }
+.brand-word { font-family: var(--font-display); font-size: 1.05rem; letter-spacing: .02em; }
+
+.site-navbar .nav-link {
+  color: var(--paper);
+  font-size: .84rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .5rem 1rem;
+  position: relative;
+  opacity: .78;
+}
+.site-navbar .nav-link:hover { opacity: 1; }
+.site-navbar .nav-link::after {
+  content: "";
+  position: absolute; left: 1rem; right: 1rem; bottom: .15rem;
+  height: 2px; background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .3s ease;
+}
+.site-navbar .nav-link:hover::after,
+.site-navbar .nav-link[aria-current="true"]::after { transform: scaleX(1); }
+.site-navbar .nav-link[aria-current="true"] { opacity: 1; }
+
+.nav-cta {
+  background: var(--accent);
+  color: var(--ink);
+  font-size: .84rem;
+  font-weight: 700;
+  padding: .55rem 1.2rem;
+  border-radius: 999px;
+  margin-left: .4rem;
+  display: inline-block;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.6); }
+
+.navbar-toggler { border: 1px solid var(--glass-border); padding: .35rem .5rem; border-radius: 10px; }
+.navbar-toggler:focus { box-shadow: none; outline: 2px solid var(--accent); }
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23FFF7EC' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-collapse {
+  margin-top: .6rem;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: .4rem .6rem;
+}
+@media (min-width: 768px) {
+  .navbar-collapse { margin-top: 0; background: none; border: 0; padding: 0; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* ---------- Full-bleed section bands ---------- */
+.hero-band, .section-band-light, .section-band-dim, .contact-band { width: 100%; }
+
+.hero-band { background: var(--bg); color: var(--paper); position: relative; overflow: hidden; }
+.section-band-light { background: var(--paper); }
+.section-band-dim { background: var(--paper-dim); }
+.contact-band { background: var(--bg); color: var(--paper); }
+
+/* inner max-width wrapper, no background here on purpose */
+.book-page { max-width: var(--page-max); margin: 0 auto; padding: clamp(3.5rem, 7vw, 5.5rem) 1.5rem; }
+
+main { position: relative; z-index: 2; }
+main [id] { scroll-margin-top: 6.5rem; }
+
+.hero-inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: clamp(2.2rem, 6vw, 4rem) 1.5rem clamp(4rem, 8vw, 6rem);
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: center;
+}
+@media (max-width: 767.98px) { .hero-inner { grid-template-columns: 1fr; } }
+
+.hero-eyebrow { color: var(--accent); margin-bottom: 1rem; }
+.hero-lede { color: var(--paper); opacity: .85; font-size: 1.15rem; margin-top: 1.2rem; max-width: 44ch; }
+.hero-actions { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.btn-solid {
+  display: inline-flex; align-items: center; gap: .55rem;
+  background: var(--accent); color: var(--ink);
+  font-weight: 700; font-size: .95rem;
+  padding: .85rem 1.5rem; border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.btn-solid:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.6); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: .55rem;
+  background: var(--glass-bg-light);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  color: var(--paper); font-weight: 700; font-size: .95rem;
+  padding: .85rem 1.5rem; border-radius: 999px;
+  transition: transform .2s ease, background-color .2s ease;
+}
+.btn-outline:hover { background: rgba(255,247,236,.22); transform: translateY(-2px); }
+
+/* ---------- Ilustrasi hero ---------- */
+.hero-illustration-frame {
+  background: var(--glass-bg-light);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  box-shadow: 0 20px 45px rgba(28, 17, 8, .2);
+}
+.hero-illustration { width: 100%; height: auto; display: block; }
+.hero-illustration .dash { stroke-dasharray: 6 7; }
+
+/* ---------- Section shell ---------- */
+.section-head { max-width: 640px; margin-bottom: 2.5rem; }
+.section-eyebrow { color: var(--bg); margin-bottom: .6rem; }
+.section-note { color: var(--ink-muted); margin-top: .75rem; }
+
+.bio-text { color: var(--ink-muted); font-size: 1.1rem; }
+
+/* ---------- Skill & karya ---------- */
+.work-group + .work-group { margin-top: 3rem; }
+.work-group-title { font-size: 1.2rem; margin-bottom: .35rem; }
+.work-group-note { color: var(--ink-muted); font-size: .92rem; margin-bottom: 1.5rem; }
+
+.work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+
+.work-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  transition: transform .25s ease, border-color .25s ease;
+}
+.work-card:hover { transform: translateY(-4px); border-color: var(--bg); }
+.work-title { font-size: 1.1rem; margin-bottom: .55rem; }
+.work-desc { color: var(--ink-muted); font-size: .96rem; margin-bottom: 1rem; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: .5rem; }
+.tag {
+  border: 1px solid var(--line); color: var(--ink);
+  padding: .32rem .75rem; border-radius: 999px;
+  font-size: .82rem; font-weight: 600; background: var(--paper-dim);
+}
+
+/* ---------- Kontak ---------- */
+.contact-email {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw + .8rem, 2.9rem);
+  color: var(--accent); display: inline-block; word-break: break-word;
+  transition: opacity .2s ease;
+}
+.contact-email:hover { opacity: .8; }
+.contact-note { color: var(--paper); opacity: .75; margin-top: 1.25rem; font-size: .95rem; }
+.contact-channels { margin-top: 2.25rem; max-width: 460px; }
+
+.contact-channel {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; padding: .9rem 0;
+  border-top: 1px solid var(--line-on-bold);
+  font-size: .95rem;
+}
+.contact-channels .contact-channel:last-child { border-bottom: 1px solid var(--line-on-bold); }
+
+.channel-label { display: inline-flex; align-items: center; gap: .65rem; color: var(--paper); opacity: .9; }
+.channel-icon { width: 19px; height: 19px; color: var(--paper); flex-shrink: 0; }
+
+.badge-soon {
+  display: inline-block;
+  background: var(--glass-bg-light);
+  color: var(--paper);
+  border: 1px solid var(--glass-border);
+  font-size: .78rem;
+  font-weight: 700;
+  padding: .3rem .75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--ink); color: var(--paper); padding: 1.5rem 1.25rem; text-align: center; }
+.footer-credit { font-size: .85rem; opacity: .75; }
+
+/* ---------- Reveal sekali saat load ---------- */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .site-navbar .nav-link::after, .brand-mark svg, .work-card,
+  .btn-solid, .btn-outline, .nav-cta { transition: none; }
+}
+
+@media (max-width: 575.98px) {
+  :root { --nav-space: 5.4rem; }
+}
